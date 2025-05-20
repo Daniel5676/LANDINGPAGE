@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintMaster Pro | Professional Printing Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff4500;
+            --primary-dark: #e03e00;
+            --secondary: #201f1e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #28a745;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            padding-bottom: 70px;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+        }
+        
+        .logo-text {
+            margin-left: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .header-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .header-btn:hover {
+            color: var(--primary);
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            padding: 0.15rem 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        /* Hero Section */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            max-height: 600px;
+            overflow: hidden;
+        }
+        
+        .hero-banner video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        /* Hero Content Slides */
+        .hero-content {
+            position: absolute;
+            max-width: 600px;
+            color: white;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            padding: 0 2rem;
+        }
+        
+        .hero-content.active {
+            opacity: 1;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            max-width: 80%;
+        }
+        
+        .discount-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            transform: rotate(-2deg);
+            box-shadow: var(--box-shadow);
+        }
+        
+        /* Hero Indicators */
+        .hero-indicators {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            z-index: 5;
+        }
+        
+        .indicator {
+            width: 2.5rem;
+            height: 0.25rem;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .indicator.active {
+            background-color: var(--primary);
+            width: 3.5rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 69, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 3rem 1.5rem;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .see-all {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .see-all:hover {
+            color: var(--primary-dark);
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+        
+        .service-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .service-description {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .service-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .current-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .price-unit {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .service-features {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .feature i {
+            color: var(--success);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--secondary);
+            color: white;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-description {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0.5rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 0.8rem;
+            gap: 0.3rem;
+            transition: var(--transition);
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-item:hover {
+            color: var(--primary);
+        }
+        
+        .nav-item i {
+            font-size: 1.3rem;
+        }
+        
+        /* Responsive Styles */
+        @media (min-width: 576px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .discount-badge {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-banner {
+                height: 70vh;
+            }
+            
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section {
+                padding: 4rem 2rem;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            body {
+                padding-bottom: 0;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .bottom-nav {
+                display: none;
+            }
+            
+            .desktop-nav {
+                display: flex;
+                gap: 2rem;
+            }
+            
+            .desktop-nav-link {
+                color: var(--secondary);
+                text-decoration: none;
+                font-weight: 500;
+                transition: var(--transition);
+                position: relative;
+            }
+            
+            .desktop-nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: var(--primary);
+                transition: var(--transition);
+            }
+            
+            .desktop-nav-link:hover {
+                color: var(--primary);
+            }
+            
+            .desktop-nav-link:hover::after {
+                width: 100%;
+            }
+            
+            .desktop-nav-link.active {
+                color: var(--primary);
+            }
+            
+            .desktop-nav-link.active::after {
+                width: 100%;
+            }
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgD2o1ruxOQfQOwedvjLaUiaTY2Mwx9YSu2YsZkhWJueJkrPNNREaLIbs_CoIAD-1cp-C_5JggXUfCYkOn6WrSZV1wFvHcogwjfvgb-9OrS75YM52-WziyTb5-nLMkEATld65PFMOSrXH-XbeCYbo_pO45uVGPltccZI9NZwZatK4I0ssBK9MTIUZj062mV/s320/WhatsApp%20Image%202025-03-05%20at%2020.23.14_927e35f0.jpg" alt="OPolo printing services">
+            <span class="logo-text">Opolo<br/>services center</span>
+        </div>
+        
+        <nav class="desktop-nav">
+            <!--<a href="#" class="desktop-nav-link active">Home</a>
+            <a href="#services" class="desktop-nav-link">Services</a>-->
+            <a href="#about" class="desktop-nav-link">About Us</a>
+            <a href="#contact" class="desktop-nav-link">Contact</a>
+        </nav>
+        
+        <!--<div class="header-actions">
+            <button class="header-btn">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="header-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge">2</span>
+            </button>
+            <button class="header-btn d-none d-md-block">
+                <i class="fas fa-user"></i>
+            </button>
+        </div>-->
+    </header>
+    
+    <div class="hero-banner">
+        <video autoplay muted loop playsinline poster="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgob36iZqsoR-7k1kyUshYmWGoJ7ry5-SQf00YBqDxtwFDqzRTpIgeoZ4mNkw6J0BahiiIvysOeyNK375DsG7LgJkfS_PBeTlH0aGKla_q3WKlXgHtYy9RHsVbALXESH_qDTUt5zDxj0hTAkvL3n8-sV4Wm9Zj9T-ew0drcFGlq-mk15_soCwoC8wwgP164/s320/WhatsApp%20IMAGE%202025-03-05%20at%2018.28.55_bc406d8c.jpg">
+            <source src="https://v1.pinimg.com/videos/iht/720p/e1/fe/e2/e1fee28f79f80e5ba7ac1833712cae96.mp4" type="video/mp4">
+            <!-- Fallback image if video fails to load -->
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEid4FPF5Whwahet1qUYUluuMAaPrvDMz6347-TvsX8xmH85HZr1QzkgqxEpA7rdo6wwWEtiv74N3-VuPhBVYMHOqPjRpR0oWq3QDtkBMwAxHosIfdiZ0icVHIQKjqyuDEAjr9T_aIJCqj4CrgoEBDt3NzrAdLFoUXA4xGoTvEm0ePUmNP3HUmb1IF5tYLjS/s320/WhatsApp%20Image%202025-03-05%20at%2018.28.55_ac921c67.jpg" alt="Printing Services">
+        </video>
+        <div class="hero-overlay">
+            <!-- Hero Content Slides -->
+            <div class="hero-content active" data-index="0">
+                <h2>Quality printing sevices</h2>
+                <p>Print your quality banner, flex and sav. get up to 30% discount on your first ten orders, enjoy our fast 24hr delivary, you also get 30% discount on your first 10 delivary</p>
+                <div class="discount-badge pulse">20% OFF First Order</div>
+                <a href="#services" class="btn btn-primary">
+                    <i class="fas fa-print"></i> Explore Services
+                </a>
+            </div>
+            
+            <div class="hero-content" data-index="1">
+                <h2>hire a professional freelancer</h2>
+                <p>Bring your ideas to life with our expert designers and programmers. Expect creative, high-quality designs that make an impact. </p>
+                <div class="discount-badge pulse">Free Consultation</div>
+                <a href="#services" class="btn btn-primary">
+                    <i class="fas fa-palette"></i>Hire now
+                </a>
+            </div>
+            
+            <div class="hero-content" data-index="2">
+                <h2>Join Our Tech Skill Acquisition Scholarship Program Today</h2>
+                <p>join our tech skill aquistion program and developp your knowlege in any tech skill of your choice sure as 1) web design 2) ui/ux designer 3) fullstack developer 4) content creator E.T.C </p>
+                <div class="discount-badge pulse">Earn while learning </div>
+                <a href="#services" class="btn btn-primary">
+                    <i class="fas fa-truck-fast"></i>apply for scholarship
+                </a>
+            </div>
+            
+            <!-- Hero Indicators -->
+            <div class="hero-indicators">
+                <button class="indicator active" data-slide="0" aria-label="Slide 1"></button>
+                <button class="indicator" data-slide="1" aria-label="Slide 2"></button>
+                <button class="indicator" data-slide="2" aria-label="Slide 3"></button>
+            </div>
+        </div>
+    </div>
+    
+    <section id="services" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Our Premium Services</h2>
+            <a href="#" class="see-all">View All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgSn7paPS81vDqDIHheERsztEdVutoHfFvuCVsmFicrBaXnJGmI8w7eXEk7pGzZ_HERlgD2LY0n8wvCGdi9NaY-MS4UfEBcc33Hk5_Li8CThw2fkx_evYE7dz00a59r_1G393OXE3AEMEIIxmRtRJRsBptS7GP1XQVd2faGEFbv1NR9hkIepEC_HPZ-JUYM/s320/WhatsApp%20Image%202025-03-05%20at%2018.11.55_8c4a5a07.jpg" alt="Large Format Printing">
+                    <div class="service-badge">Most Popular</div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Large Format Banners</h3>
+                    <p class="service-description">High-quality large format printing for banners, posters, and signage with vibrant colors and sharp details.</p>
+                    <div class="service-price">
+                        <span class="current-price">₦1,000</span>
+                        <span class="price-unit">per foot</span>
+                    </div>
+                    <div class="service-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Weather-resistant materials</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Fast turnaround time</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/message/2DEU3RUU33QEF1" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fab fa-whatsapp"></i> Order Now
+                    </a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEib-8o99D6Oe863gUWG-uf7eLmTMuIzHhO2Fb8spQLBBnCWpRBM1w-rkuCEqfseVOJra0YJ2NIg6UItehg1phH0VgYFAMaQ6Lem8kQJEiwbBsOsX0vbzeU_uAuV-fE56wkApDj2WWojQh3MK1RyEOTKwhXmxNk3cAt-5gjNamhpE5Rj4s_35qG1xxxEVFTB/s320/WhatsApp%20Image%202025-03-05%20at%2022.04.15_28e39aa1.jpg" alt="Graphic Design Services">
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Professional Graphic Design</h3>
+                    <p class="service-description">Custom graphic design services by experienced designers for all your branding and marketing needs.</p>
+                    <div class="service-price">
+                        <span class="current-price">₦5,000</span>
+                        <span class="price-unit">per project</span>
+                    </div>
+                    <div class="service-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Unlimited revisions</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Source files included</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/message/2DEU3RUU33QEF1" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fab fa-whatsapp"></i> Order Now
+                    </a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiw-b8OofdYW-ayqzlHrydsd6VMVjco0k2tYdFMzdskG7FEEh7P1urznl3QvmtSjjZ5-tVL8HibVwk01MyfkCP7mnXqUzwr2Smg0viDIkDJMBJ15RhdaMoFq2mjw21OpCE4SrRvj2Kiq-v_D0_VY7olmo57uaOnDAgVIeGdgpOzs6if49hQ_N9aGZHKyDyZ/s320/WhatsApp%20Image%202025-03-05%20at%2018.11.57_f49a5914.jpg" alt="Object Printing">
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Custom Object Printing</h3>
+                    <p class="service-description">High-quality printing on various objects including mugs, t-shirts, caps, and promotional items.</p>
+                    <div class="service-price">
+                        <span class="current-price">₦500</span>
+                        <span class="price-unit">starting price</span>
+                    </div>
+                    <div class="service-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Durable printing</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Bulk discounts available</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/message/2DEU3RUU33QEF1" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fab fa-whatsapp"></i> Order Now
+                    </a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEirDoVzr3Xm1KbUcKojoUGMRJ6pHW380rHAaPmGTpC2aiChpT2A8jxxPYpXOSocJkrlDYiPARlhVJFR-iZBuElX0SovSMpgeRy2tlF1Pr8iuFheYppHLT9gBLhPaS1mUHSawTP-0CH4rydDiJznkBl5ZOl0GN-MTsP-DvyJWTE2pk-xbEy4PSXdLYtgYztQ/s320/WhatsApp%20Image%202025-03-05%20at%2018.12.00_37d97d39.jpg" alt="Document Printing">
+                    <div class="service-badge">40% Off Delivery</div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Document Printing</h3>
+                    <p class="service-description">Professional document printing services for business cards, flyers, brochures, and more.</p>
+                    <div class="service-price">
+                        <span class="current-price">₦100</span>
+                        <span class="price-unit">per page</span>
+                    </div>
+                    <div class="service-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Premium paper options</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>40% off first delivery</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/message/2DEU3RUU33QEF1" class="btn btn-secondary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fab fa-whatsapp"></i> Order Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Transform Your Ideas into Print?</h2>
+        <p class="cta-description">Get in touch with our team of experts today and bring your vision to life with our premium printing services.</p>
+        <a href="https://wa.me/message/2DEU3RUU33QEF1" class="btn btn-primary">
+            <i class="fab fa-whatsapp"></i> Contact Us on WhatsApp
+        </a>
+    </section>
+    
+    <section id="about" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Why Choose Us</h2>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-content" style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-print" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 class="service-title">Quality Printing</h3>
+                    <p class="service-description">We use state-of-the-art printing technology to ensure the highest quality for all your printing needs.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content" style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-truck-fast" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 class="service-title">Fast Delivery</h3>
+                    <p class="service-description">Quick turnaround times and reliable delivery to meet your deadlines.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content" style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-tags" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 class="service-title">Competitive Pricing</h3>
+                    <p class="service-description">Affordable rates without compromising on quality or service.</p>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-content" style="text-align: center; padding: 2rem;">
+                    <i class="fas fa-headset" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 class="service-title">Customer Support</h3>
+                    <p class="service-description">Dedicated support team available to assist you throughout your printing journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="section" style="background-color: #f8f9fa;">
+        <div class="section-header">
+            <h2 class="section-title">Visit Our Head Office</h2>
+        </div>
+        
+        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
+                We're conveniently located we are currently located at River state university of science and tecnology. Managment science building (BOI-Opolo innovation hub)           </p>
+            
+            <div style="margin-bottom: 2rem;">
+                <i class="fas fa-map-marker-alt" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <p style="font-weight: 600; font-size: 1.2rem;">Our Location</p>
+                <p>River state university of science and tecnology. Managment science building (BOI-Opolo innovation hub)</p>
+            </div>
+            
+            <a href="https://wa.me/message/2DEU3RUU33QEF1" class="btn btn-primary" style="margin-bottom: 1rem;">
+                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
+        </div>
+    </section>
+    
+    <footer style="background-color: var(--secondary); color: white; padding: 2rem 1.5rem; text-align: center;">
+        <div style="margin-bottom: 1.5rem;">
+            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgD2o1ruxOQfQOwedvjLaUiaTY2Mwx9YSu2YsZkhWJueJkrPNNREaLIbs_CoIAD-1cp-C_5JggXUfCYkOn6WrSZV1wFvHcogwjfvgb-9OrS75YM52-WziyTb5-nLMkEATld65PFMOSrXH-XbeCYbo_pO45uVGPltccZI9NZwZatK4I0ssBK9MTIUZj062mV/s320/WhatsApp%20Image%202025-03-05%20at%2020.23.14_927e35f0.jpg" alt="PrintMaster Pro Logo" style="height: 50px; width: auto;">
+                <span class="logo-text" style="color: var(--primary);">Opolo Innovation </span>
+            </div>
+            <p style="max-width: 600px; margin: 0 auto; opacity: 0.8;">
+                Your one-stop solution for all printing needs. Quality, reliability, and customer satisfaction guaranteed.
+            </p>
+        </div>
+        
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+            <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+            <a href="https://wa.me/message/2DEU3RUU33QEF1" style="color: white; font-size: 1.5rem;"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <p style="opacity: 0.6; font-size: 0.9rem;">
+            &copy; 2025 Opolo service. All rights reserved.
+        </p>
+    </footer>
+    
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#services" class="nav-item">
+            <i class="fas fa-print"></i>
+            <span>Services</span>
+        </a>
+        <a href="#contact" class="nav-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Location</span>
+        </a>
+        <a href="https://wa.me/message/2DEU3RUU33QEF1" class="nav-item">
+            <i class="fab fa-whatsapp"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
+    
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active state in navigation
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    document.querySelectorAll('.desktop-nav-link').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    document.querySelectorAll(`a[href="${targetId}"]`).forEach(item => {
+                        item.classList.add('active');
+                    });
+                }
+            });
+        });
+        
+        // Handle scroll events to update active navigation
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            if (currentSection) {
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelectorAll('.desktop-nav-link').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                document.querySelectorAll(`a[href="${currentSection}"]`).forEach(item => {
+                    item.classList.add('active');
+                });
+            } else if (pageYOffset < 100) {
+                // Home is active when at the top
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    if (item.querySelector('span').textContent === 'Home') {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+                document.querySelectorAll('.desktop-nav-link').forEach(item => {
+                    if (item.textContent === 'Home') {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // Hero Slider Functionality
+        const heroContents = document.querySelectorAll('.hero-content');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            // Hide all slides
+            heroContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Deactivate all indicators
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+            });
+            
+            // Show the selected slide and activate its indicator
+            heroContents[index].classList.add('active');
+            indicators[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % heroContents.length;
+            showSlide(currentSlide);
+        }
+
+        // Set up click handlers for indicators
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showSlide(index);
+                resetSlideInterval();
+            });
+        });
+
+        // Start automatic slideshow
+        function startSlideshow() {
+            slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+
+        function resetSlideInterval() {
+            clearInterval(slideInterval);
+            startSlideshow();
+        }
+
+        // Initialize the slideshow
+        startSlideshow();
+    </script>
+</body>
+</html>
